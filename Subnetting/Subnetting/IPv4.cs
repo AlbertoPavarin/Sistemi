@@ -31,16 +31,6 @@ namespace Subnetting
             return boolIP;
         }
 
-        /*public int GetSubnetLenght()
-        {
-            return this.subnetMask.Count(d => d == '1');
-        }
-
-        public int GetWildcardLenght()
-        {
-            return this.subnetMask.Count(d => d == '0');
-        }*/
-
         public byte[] GetSubnetMask()
         {
             return this.subnetMask;
@@ -95,34 +85,36 @@ namespace Subnetting
             return networkAddress;
         }
 
-        public byte[] GetBroadcast() //
+        public byte[] GetBroadcast()
         {
             byte[] broadcastAddress = new byte[4];
-            //broadcastAddress = this.GetNetworkAddress();
-            //int len = this.GetWildcardLenght();
             for (int i = 0; i < this.ipAddress.Length; i++)
             {
-                broadcastAddress[i] = (byte)(this.GetNetworkAddress()[i] & this.subnetMask[i]);
+                broadcastAddress[i] = (byte)(this.GetNetworkAddress()[i] | this.GetWildcard()[i]);
             }
             return broadcastAddress;
         }
 
-        public int GetTotalNumberHost() ////
+        public double GetTotalNumberHost()
         {
-            return 0;
+            return Math.Pow(2, Convert.ToDouble(this.GetCIDR().Count(d => d == '0')));
         }
 
-        public int GetNumberUsableHost() ////
+        public double GetNumberUsableHost()
         {
-            return 0;
+            return this.GetTotalNumberHost() - 2;
         }
 
-        public string GetWildcard() ////
+        public byte[] GetWildcard() 
         {
-            string wildcard = "";
+            string tmp = "";
+            byte[] wildcard = new byte[4];
+            int i=0;
             foreach (byte oct in this.subnetMask)
             {
-                wildcard += Convert.ToString(oct, 2).Replace('0', '~').Replace('1', '0').Replace('~', '1').PadLeft(8,'1') + " ";
+                tmp += Convert.ToString(oct, 2).Replace('0', '~').Replace('1', '0').Replace('~', '1').PadLeft(8,'1');
+                wildcard[i] = Convert.ToByte(tmp.Substring(8 * i, 8), 2);
+                i++;
             }
             return wildcard;
         }
@@ -138,15 +130,19 @@ namespace Subnetting
             return boolSub;
         }
 
-        public byte[] GetFirstHostIP() ////
+        public byte[] GetFirstHostIP() 
         {
             byte[] firstIpAddress = new byte[4];
+            firstIpAddress = this.GetNetworkAddress();
+            firstIpAddress[3] += 1;
             return firstIpAddress;
         }
 
-        public byte[] GetLastHostIP() ////
+        public byte[] GetLastHostIP() 
         {
             byte[] lastIpAddress = new byte[4];
+            lastIpAddress = this.GetBroadcast();
+            lastIpAddress[3] -= 1;
             return lastIpAddress;
         }
 

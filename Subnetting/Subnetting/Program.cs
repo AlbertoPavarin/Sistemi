@@ -40,12 +40,17 @@ namespace Subnetting
                 ipv4.setSubnetMask(sm);
             } while (!ipv4.checkFullSub());
 
+            Console.Clear();
+
             Console.WriteLine($"\n{ipv4.toString()}\n");
             Console.WriteLine($"Ip in bit: {ipv4.GetIP_addbool()}\n");
             Console.WriteLine($"Subnet mask in bit: {ipv4.GetCIDR()}\n");
             Console.WriteLine($"Indirizzo di rete: {String.Join(".",ipv4.GetNetworkAddress())}\n");
             Console.WriteLine($"Indirizzo di broadcast: {String.Join(".", ipv4.GetBroadcast())}\n");
-            Console.WriteLine($"Wildcard mask in bit: {ipv4.GetWildcard()}\n");
+            Console.WriteLine($"Wildcard mask: {String.Join(".", ipv4.GetWildcard())}\n");
+            Console.WriteLine($"Numero totale degli host: {ipv4.GetTotalNumberHost()}\n");
+            Console.WriteLine($"Numero degli host utilizzabili: {ipv4.GetNumberUsableHost()}\n");
+            Console.WriteLine($"Range: {String.Join(".", ipv4.GetFirstHostIP())} - {String.Join(".", ipv4.GetLastHostIP())}\n");
 
             Console.ReadKey();
         }
