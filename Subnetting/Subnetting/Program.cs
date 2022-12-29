@@ -41,8 +41,10 @@ namespace Subnetting
             } while (!ipv4.checkFullSub());
 
             Console.WriteLine($"\n{ipv4.toString()}\n");
-            Console.WriteLine($"{ipv4.GetIP_addbool()}\n");
-            Console.WriteLine($"{ipv4.GetCIDR()}\n");
+            Console.WriteLine($"Ip in bit: {ipv4.GetIP_addbool()}\n");
+            Console.WriteLine($"Subnet mask in bit: {ipv4.GetCIDR()}\n");
+            Console.WriteLine($"Indirizzo di rete: {String.Join(".",ipv4.GetNetworkAddress())}\n");
+            Console.WriteLine($"Indirizzo di broadcast: {String.Join(".", ipv4.GetBroadcast())}\n");
 
             Console.ReadKey();
         }

@@ -31,6 +31,16 @@ namespace Subnetting
             return boolIP;
         }
 
+        /*public int GetSubnetLenght()
+        {
+            return this.subnetMask.Count(d => d == '1');
+        }
+
+        public int GetWildcardLenght()
+        {
+            return this.subnetMask.Count(d => d == '0');
+        }*/
+
         public byte[] GetSubnetMask()
         {
             return this.subnetMask;
@@ -78,28 +88,43 @@ namespace Subnetting
         public byte[] GetNetworkAddress()
         {
             byte[] networkAddress = new byte[4];
+            for (int i = 0; i < this.ipAddress.Length; i++)
+            {
+                networkAddress[i] = (byte)(this.ipAddress[i] & this.subnetMask[i]);
+            }
             return networkAddress;
         }
 
-        public byte[] GetBroadcast()
+        public byte[] GetBroadcast() //
         {
             byte[] broadcastAddress = new byte[4];
+            //broadcastAddress = this.GetNetworkAddress();
+            //int len = this.GetWildcardLenght();
+            for (int i = 0; i < this.ipAddress.Length; i++)
+            {
+                broadcastAddress[i] = (byte)(this.GetNetworkAddress()[i] & this.subnetMask[i]);
+            }
             return broadcastAddress;
         }
 
-        public int GetTotalNumberHost()
+        public int GetTotalNumberHost() ////
         {
             return 0;
         }
 
-        public int GetNumberUsableHost()
+        public int GetNumberUsableHost() ////
         {
             return 0;
         }
 
-        public string GetWildcard()
+        public string GetWildcard() ////
         {
-            return "";
+            string wildcard = "";
+            foreach (byte oct in this.subnetMask)
+            {
+                wildcard += Convert.ToString(oct, 2).Replace('0', '1');
+            }
+            return wildcard;
         }
 
         public string GetCIDR() // ritorna maschera in bit
@@ -113,13 +138,13 @@ namespace Subnetting
             return boolSub;
         }
 
-        public byte[] GetFirstHostIP()
+        public byte[] GetFirstHostIP() ////
         {
             byte[] firstIpAddress = new byte[4];
             return firstIpAddress;
         }
 
-        public byte[] GetLastHostIP()
+        public byte[] GetLastHostIP() ////
         {
             byte[] lastIpAddress = new byte[4];
             return lastIpAddress;
