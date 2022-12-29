@@ -122,7 +122,7 @@ namespace Subnetting
             string wildcard = "";
             foreach (byte oct in this.subnetMask)
             {
-                wildcard += Convert.ToString(oct, 2).Replace('0', '1');
+                wildcard += Convert.ToString(oct, 2).Replace('0', '~').Replace('1', '0').Replace('~', '1').PadLeft(8,'1') + " ";
             }
             return wildcard;
         }

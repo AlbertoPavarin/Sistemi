@@ -45,6 +45,7 @@ namespace Subnetting
             Console.WriteLine($"Subnet mask in bit: {ipv4.GetCIDR()}\n");
             Console.WriteLine($"Indirizzo di rete: {String.Join(".",ipv4.GetNetworkAddress())}\n");
             Console.WriteLine($"Indirizzo di broadcast: {String.Join(".", ipv4.GetBroadcast())}\n");
+            Console.WriteLine($"Wildcard mask in bit: {ipv4.GetWildcard()}\n");
 
             Console.ReadKey();
         }
