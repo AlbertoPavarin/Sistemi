@@ -26,17 +26,19 @@ namespace Subnetting
             }
             ipv4.SetIp_address(ip);
 
-            for (int i = 0; i < 4; i++)
+            do
             {
-                do
+                for (int i = 0; i < 4; i++)
                 {
-                    Console.WriteLine($"Inserisci il {i + 1} otteto della subnet mask");
-                    s = Convert.ToString(Console.ReadLine());
-                    controllo = Byte.TryParse(s, out sm[i]);
-                } while (!controllo || !ipv4.CheckSubOct(sm[i]));
-            }
-
-            ipv4.setSubnetMask(sm);
+                    do
+                    {
+                        Console.WriteLine($"Inserisci il {i + 1} otteto della subnet mask");
+                        s = Convert.ToString(Console.ReadLine());
+                        controllo = Byte.TryParse(s, out sm[i]);
+                    } while (!controllo || !ipv4.CheckSubOct(sm[i]));
+                }
+                ipv4.setSubnetMask(sm);
+            } while (!ipv4.checkFullSub());
 
             Console.WriteLine($"{ipv4.GetIP_addr()} e {ipv4.GetSubnetMask()}");
 
