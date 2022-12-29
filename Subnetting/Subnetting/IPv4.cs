@@ -22,7 +22,13 @@ namespace Subnetting
 
         public string GetIP_addbool()      // ritorna l'ip in formato binario
         {
-            return "";
+            string boolIP = "";
+            foreach(byte oct in this.ipAddress)
+            {
+                boolIP += Convert.ToString(oct, 2).PadLeft(8, '0') + " ";
+            }
+
+            return boolIP;
         }
 
         public byte[] GetSubnetMask()
@@ -96,9 +102,15 @@ namespace Subnetting
             return "";
         }
 
-        public string GetCIDR(int n) // ritorna maschera in bin
+        public string GetCIDR() // ritorna maschera in bit
         {
-            return "";
+            string boolSub = "";
+            foreach (byte oct in this.subnetMask)
+            {
+                boolSub += Convert.ToString(oct, 2).PadLeft(8, '0') + " ";
+            }
+
+            return boolSub;
         }
 
         public byte[] GetFirstHostIP()
@@ -111,6 +123,11 @@ namespace Subnetting
         {
             byte[] lastIpAddress = new byte[4];
             return lastIpAddress;
+        }
+
+        public string toString()
+        {
+            return $"Ip address: {this.ipAddress[0]}.{this.ipAddress[1]}.{this.ipAddress[2]}.{this.ipAddress[3]}\nSubnet Mask: {this.subnetMask[0]}.{this.subnetMask[1]}.{this.subnetMask[2]}.{this.subnetMask[3]}";
         }
     }
 }

@@ -40,7 +40,9 @@ namespace Subnetting
                 ipv4.setSubnetMask(sm);
             } while (!ipv4.checkFullSub());
 
-            Console.WriteLine($"{ipv4.GetIP_addr()} e {ipv4.GetSubnetMask()}");
+            Console.WriteLine($"\n{ipv4.toString()}\n");
+            Console.WriteLine($"{ipv4.GetIP_addbool()}\n");
+            Console.WriteLine($"{ipv4.GetCIDR()}\n");
 
             Console.ReadKey();
         }
